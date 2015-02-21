@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="TheAppTheme" parent="@style/_TheAppTheme"/>
+
+  <style name="_TheAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+      <item name="colorPrimary">@color/primary_color</item>
+      <item name="colorPrimaryDark">@color/primary_color_dark</item>
+      <item name="windowActionBar">false</item>
+
+    <item name="android:editTextStyle">@style/EditTextTheAppTheme</item>
+
+    <item name="android:textColorHighlight">#998300FF</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTheAppTheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarTheAppTheme</item>
+
+  </style>
+
+</resources>

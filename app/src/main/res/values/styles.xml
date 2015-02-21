@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/primary_color_dark</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:editTextStyle">@style/EditTextTheAppTheme</item>
+        <item name="android:textColorHighlight">#998300FF</item>
+
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTheAppTheme</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarTheAppTheme</item>
+    </style>
+
+</resources>
