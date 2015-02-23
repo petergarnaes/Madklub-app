@@ -9,8 +9,8 @@ import java.util.List;
 public class DinnerClubDetail extends DinnerClub {
     private List<Person> participants;
 
-    public DinnerClubDetail(Calendar date) {
-        super(date);
+    public DinnerClubDetail(Calendar date,String cook,String course) {
+        super(date,cook,course);
     }
 
     public List<Person> getParticipants() {

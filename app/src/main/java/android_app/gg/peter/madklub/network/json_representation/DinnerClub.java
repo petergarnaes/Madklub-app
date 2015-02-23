@@ -13,8 +13,10 @@ public class DinnerClub {
     private boolean shopped;
     private boolean paticipating;
 
-    public DinnerClub(Calendar date) {
+    public DinnerClub(Calendar date,String cook,String course) {
         this.date = date;
+        this.cook = new Person(cook);
+        this.mainCourse = course;
     }
 
     public Calendar getDate() {

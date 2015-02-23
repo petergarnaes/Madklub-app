@@ -9,6 +9,10 @@ public class Person {
     private String lastName;
     private String room;
 
+    public Person(String name){
+        firstName = name;
+    }
+
     public String getFirstName() {
         return firstName;
     }

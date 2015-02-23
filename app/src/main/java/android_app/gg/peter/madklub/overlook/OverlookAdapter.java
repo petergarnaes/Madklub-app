@@ -31,10 +31,29 @@ public class OverlookAdapter extends RecyclerView.Adapter<OverlookViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(OverlookViewHolder holder, int position) {
-        DinnerClub dinnerClub = data[position];
+    public void onBindViewHolder(final OverlookViewHolder holder, int position) {
+        final DinnerClub dinnerClub = data[position];
         String dateText = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(dinnerClub.getDate().getTime());
         holder.date.setText(dateText);
+        holder.menu.setText(dinnerClub.getMainCourse());
+        holder.cook.setText(dinnerClub.getCook().getFirstName());
+        holder.participatingButton.setSelected(dinnerClub.isPaticipating());
+        holder.participatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dinnerClub.setPaticipating(true);
+                holder.participatingButton.setSelected(true);
+                holder.notParticipatingButton.setSelected(false);
+            }
+        });
+        holder.participatingButton.setSelected(!dinnerClub.isPaticipating());
+        holder.notParticipatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.notParticipatingButton.setSelected(true);
+                holder.participatingButton.setSelected(false);
+            }
+        });
 //        holder.dish.setImageDrawable(mContext.getResources().getDrawable(R.drawable.noodles));
     }
 

@@ -15,7 +15,12 @@ import android_app.gg.peter.madklub.overlook.OverlookAdapter;
 
 
 public class OverlookActivity extends ActionBarActivity {
-    private static final DinnerClub[] myDataset = {new DinnerClub(Calendar.getInstance())};
+//    private static final DinnerClub[] myDataset = {new DinnerClub(Calendar.getInstance())};
+    private static final String[] courses = {"Nudler","Lassagne","Wok","Mørbrad","Bøf med Løg",
+                    "Firkadeller","Reje Suppe","Pizza","Forloren hare","Risengrød"};
+    private static final String[] cooks = {"Peter Alexander Garnæs","Andreas Braun","Urd schrøder",
+            "Niels Thorbjørn","Julie Kror","Maria Damm","Bitta Baksbur","Erik Gräs",
+            "Christian Raahauge","Trine Fryjana"};
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -37,7 +42,7 @@ public class OverlookActivity extends ActionBarActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new OverlookAdapter(this,myDataset);
+        mAdapter = new OverlookAdapter(this, getTestData());
         mRecyclerView.setAdapter(mAdapter);
 //        toolbar.getBackground().setAlpha(0);
     }
@@ -63,5 +68,14 @@ public class OverlookActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private DinnerClub[] getTestData(){
+        DinnerClub[] dc = new DinnerClub[10];
+        for(int i = 0;i < 10;i++){
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DAY_OF_MONTH,i);
+            dc[i] = new DinnerClub(cal,cooks[i],courses[i]);
+        }
+        return dc;
     }
 }
