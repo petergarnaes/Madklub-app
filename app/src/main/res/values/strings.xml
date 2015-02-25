@@ -5,8 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-
-    <!--Overlook-->
+    <!-- Overlook -->
     <string name="button_participating">Kommer</string>
     <string name="button_not_participating">Kommer ikke</string>
+    <string name="title_activity_dinneclub_detail">DinneclubDetailActivity</string>
+    <string name="calendar_title">Kalender</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

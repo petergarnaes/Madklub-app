@@ -4,4 +4,13 @@
     <color name="primary_color_dark">#490090</color>
     <color name="photo_tint">#208300FF</color>
     <color name="participate_button_pressed">#B5B5B5</color>
+    <color name="calendar_current_month">#FFF</color>
+    <color name="calendar_background">#FFFFFF</color>
+    <color name="calendar_date_selected">#895FB2</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="calendar_text_selected">#FFA419</color>
+    <color name="calendar_text_inactive">#C5C1C8</color>
+    <color name="calendar_background_today">#008300FF</color>
+    <color name="calendar_header_text">#FFFFFF</color>
+    <color name="calendar_text_today">#FF7F00</color>
 </resources>

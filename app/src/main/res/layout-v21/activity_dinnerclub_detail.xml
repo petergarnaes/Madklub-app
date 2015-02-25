@@ -1,0 +1,11 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/dinnerclub_detail_root_view"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="android_app.gg.peter.madklub.dinnerclub_detail.DinneclubDetailActivity">
+    <!--This one simply just doesn't have layout animation because we already animate the transition-->
+    <include layout="@layout/toolbar"/>
+    <include layout="@layout/dinnerclub_detail_content"/>
+</LinearLayout>

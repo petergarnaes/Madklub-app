@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!--android:layoutAnimation="@anim/cardview_layout_animation"-->
 
         <ImageView
             android:id="@+id/overlook_image"
@@ -53,8 +54,7 @@
                 <TextView
                     android:id="@+id/menu_text_view"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Noodles" />
+                    android:layout_height="wrap_content" />
                     <!--android:layout_below="@id/overlook_image"-->
                     <!--android:layout_toRightOf="@id/serving_icon"-->
             </TableRow>
@@ -72,8 +72,7 @@
                 <TextView
                     android:id="@+id/cook_text_view"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Peter Garnæs" />
+                    android:layout_height="wrap_content" />
                     <!--android:paddingTop="@dimen/cook_padding"-->
                     <!--android:layout_toRightOf="@id/chef_hat_icon"-->
                     <!--android:layout_below="@id/menu_text_view"-->
@@ -93,15 +92,17 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/participate_button_selector"
                 android:layout_weight="0.5"
-                android:layout_margin="5dp"
+                style="?android:attr/buttonBarButtonStyle"
                 android:drawableLeft="@drawable/ic_action_accept"
                 android:text="@string/button_participating" />
 
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_margin="5dp"-->
             <Button
                 android:id="@+id/button_not_participating"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                style="?android:attr/buttonBarButtonStyle"
                 android:background="@drawable/participate_button_selector"
                 android:layout_weight="0.5"
                 android:drawableLeft="@drawable/ic_action_cancel"

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--android:layoutAnimation="@anim/cardview_layout_animation"-->
+
+    <ImageView
+        android:id="@+id/dinnerclub_detail_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/noodles"
+        android:tint="@color/photo_tint" />
+    <!--android:adjustViewBounds="true"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:layout_alignParentTop="true"-->
+
+    <TextView
+        android:id="@+id/date_text_view_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="10dp"
+        android:shadowColor="#000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="5"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/table_cook_course_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dinnerclub_detail_image_view">
+        <TableRow
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/serving_icon_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/overlook_icon_padding"
+                android:src="@drawable/menu_icon" />
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_below="@id/overlook_image"-->
+
+            <TextView
+                android:id="@+id/menu_text_view_detail"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+            <!--android:layout_below="@id/overlook_image"-->
+            <!--android:layout_toRightOf="@id/serving_icon"-->
+        </TableRow>
+        <TableRow
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/chef_hat_icon_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/overlook_icon_padding"
+                android:src="@drawable/cook_icon" />
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_below="@id/serving_icon"-->
+
+            <TextView
+                android:id="@+id/cook_text_view_detail"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+            <!--android:paddingTop="@dimen/cook_padding"-->
+            <!--android:layout_toRightOf="@id/chef_hat_icon"-->
+            <!--android:layout_below="@id/menu_text_view"-->
+        </TableRow>
+    </TableLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/table_cook_course_detail"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_participating_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/participate_button_selector"
+            android:layout_weight="0.5"
+            style="?android:attr/buttonBarButtonStyle"
+            android:drawableLeft="@drawable/ic_action_accept"
+            android:text="@string/button_participating" />
+
+        <!--android:layout_margin="5dp"-->
+        <!--android:layout_margin="5dp"-->
+        <Button
+            android:id="@+id/button_not_participating_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:background="@drawable/participate_button_selector"
+            android:layout_weight="0.5"
+            android:drawableLeft="@drawable/ic_action_cancel"
+            android:text="@string/button_not_participating" />
+    </LinearLayout>
+</RelativeLayout>
