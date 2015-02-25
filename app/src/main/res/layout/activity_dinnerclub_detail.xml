@@ -4,7 +4,7 @@
     android:id="@+id/dinnerclub_detail_root_view"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:layoutAnimation="@anim/cardview_layout_animation"
+    android:layoutAnimation="@anim/overlook_layout_animation"
     tools:context="android_app.gg.peter.madklub.dinnerclub_detail.DinneclubDetailActivity">
 
     <include layout="@layout/toolbar"/>
@@ -12,7 +12,6 @@
     <!--<RelativeLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
-        <!--&lt;!&ndash;android:layoutAnimation="@anim/cardview_layout_animation"&ndash;&gt;-->
 
         <!--<ImageView-->
             <!--android:id="@+id/dinnerclub_detail_image_view"-->

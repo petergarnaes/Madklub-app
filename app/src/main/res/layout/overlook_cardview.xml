@@ -10,7 +10,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--android:layoutAnimation="@anim/cardview_layout_animation"-->
 
         <ImageView
             android:id="@+id/overlook_image"

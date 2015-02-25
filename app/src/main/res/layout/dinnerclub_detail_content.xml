@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--android:layoutAnimation="@anim/cardview_layout_animation"-->
 
     <ImageView
         android:id="@+id/dinnerclub_detail_image_view"

@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 
 import com.squareup.timessquare.CalendarPickerView;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import android_app.gg.peter.madklub.R;
+import android_app.gg.peter.madklub.dinnerclub_detail.DinnerclubDetailActivity;
 import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
 
 /**
@@ -61,7 +63,6 @@ public class CalendarFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d("Wiosoft", "OPTIONS MENU BITTE!");
         inflater.inflate(R.menu.menu_overlook_calendar, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -104,7 +105,23 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onDateUnselected(Date date) {
                 calendar.selectDate(date);
-                // Open DinnerClubDetail
+                Log.d("Wiosoft","Date is: "+DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(date));
+                // Open DinnerClubDetail temporary solution
+                DinnerClub d = null;
+                for(DinnerClub dinnerClub : mListener.getTestData()){
+                    Calendar cal1 = Calendar.getInstance();
+                    Calendar cal2 = Calendar.getInstance();
+                    cal1.setTime(date);
+                    cal2.setTime(dinnerClub.getDate().getTime());
+                    boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                            cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+//                    Log.d("Wiosoft","Data date is: "+DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(dinnerClub.getDate().getTime()));
+                    if(sameDay){
+                        Log.d("Wiosoft","We got a date");
+                        d = dinnerClub;
+                    }
+                }
+                DinnerclubDetailActivity.launchFromCalendar(getActivity(),d);
             }
         });
         return rootView;

@@ -15,8 +15,12 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.Locale;
+
 import android_app.gg.peter.madklub.BaseActivity;
 import android_app.gg.peter.madklub.R;
+import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
 
 public class DinnerclubDetailActivity extends BaseActivity {
     public static final String EXTRA_IMAGE = "DetailActivity:image";
@@ -107,5 +111,14 @@ public class DinnerclubDetailActivity extends BaseActivity {
         intent.putExtra(KEY_PARTICIPATING,participating);
         ActivityCompat.startActivity(activity, intent, options.toBundle());
 //        activity.overridePendingTransition(R.anim.old_dinnerclub_detail_activity_in,R.anim.old_dinnerclub_detail_activity_out);
+    }
+    public static void launchFromCalendar(Activity activity,DinnerClub dinnerClub){
+        Intent intent = new Intent(activity, DinnerclubDetailActivity.class);
+        intent.putExtra(KEY_COURSE,dinnerClub.getMainCourse());
+        intent.putExtra(KEY_COOK,dinnerClub.getCook().getFirstName());
+        String dateText = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(dinnerClub.getDate().getTime());
+        intent.putExtra(KEY_DATE,dateText);
+        intent.putExtra(KEY_PARTICIPATING,dinnerClub.isPaticipating());
+        ActivityCompat.startActivity(activity,intent,null);
     }
 }

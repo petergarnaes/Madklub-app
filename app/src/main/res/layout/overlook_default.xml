@@ -4,5 +4,5 @@
     android:id="@+id/overlook_recycler"
     android:scrollbars="vertical"
     android:layout_width="match_parent"
-    android:layoutAnimation="@anim/cardview_layout_animation"
+    android:layoutAnimation="@anim/overlook_layout_animation"
     android:layout_height="match_parent"/>
