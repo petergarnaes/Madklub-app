@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,7 +59,6 @@ public class OverlookFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d("Wiosoft", "OPTIONS MENU BITTE!");
         inflater.inflate(R.menu.menu_overlook_cardview, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }

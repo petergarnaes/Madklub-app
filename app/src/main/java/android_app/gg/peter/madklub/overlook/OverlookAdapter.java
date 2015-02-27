@@ -36,7 +36,7 @@ public class OverlookAdapter extends RecyclerView.Adapter<OverlookViewHolder> {
                 int i = mRecyclerview.getChildPosition(v);
                 DinnerClub d = data[i];
                 DinnerclubDetailActivity.launchFromOverlook(mContext, v.findViewById(R.id.overlook_image),
-                        "bob", v.findViewById(R.id.table_cook_course), d.getMainCourse(),
+                        "bob", v.findViewById(R.id.table_cook_course), d.getCourse().getMainCourse(),
                         d.getCook().getFirstName(), DateFormat.getDateInstance(DateFormat.SHORT,
                                 Locale.getDefault()).format(d.getDate().getTime()), d.isPaticipating());
 //                Intent intent = new Intent(mContext, DinnerclubDetailActivity.class);
@@ -51,7 +51,7 @@ public class OverlookAdapter extends RecyclerView.Adapter<OverlookViewHolder> {
         final DinnerClub dinnerClub = data[position];
         String dateText = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(dinnerClub.getDate().getTime());
         holder.date.setText(dateText);
-        holder.menu.setText(dinnerClub.getMainCourse());
+        holder.menu.setText(dinnerClub.getCourse().getMainCourse());
         holder.cook.setText(dinnerClub.getCook().getFirstName());
         holder.participatingButton.setSelected(dinnerClub.isPaticipating());
         holder.participatingButton.setOnClickListener(new View.OnClickListener() {

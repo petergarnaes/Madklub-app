@@ -7,8 +7,7 @@ import java.util.Calendar;
  */
 public class DinnerClub {
     private Calendar date;
-    private String mainCourse;
-    private String sideCourse;
+    private Course course;
     private Person cook;
     private boolean shopped;
     private boolean paticipating;
@@ -16,7 +15,7 @@ public class DinnerClub {
     public DinnerClub(Calendar date,String cook,String course) {
         this.date = date;
         this.cook = new Person(cook);
-        this.mainCourse = course;
+        this.course = new Course(course);
     }
 
     public Calendar getDate() {
@@ -25,22 +24,6 @@ public class DinnerClub {
 
     public void setDate(Calendar date) {
         this.date = date;
-    }
-
-    public String getMainCourse() {
-        return mainCourse;
-    }
-
-    public void setMainCourse(String mainCourse) {
-        this.mainCourse = mainCourse;
-    }
-
-    public String getSideCourse() {
-        return sideCourse;
-    }
-
-    public void setSideCourse(String sideCourse) {
-        this.sideCourse = sideCourse;
     }
 
     public Person getCook() {
@@ -65,5 +48,13 @@ public class DinnerClub {
 
     public void setPaticipating(boolean paticipating) {
         this.paticipating = paticipating;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

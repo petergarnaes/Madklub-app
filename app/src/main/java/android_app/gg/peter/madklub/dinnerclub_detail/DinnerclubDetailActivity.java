@@ -114,7 +114,7 @@ public class DinnerclubDetailActivity extends BaseActivity {
     }
     public static void launchFromCalendar(Activity activity,DinnerClub dinnerClub){
         Intent intent = new Intent(activity, DinnerclubDetailActivity.class);
-        intent.putExtra(KEY_COURSE,dinnerClub.getMainCourse());
+        intent.putExtra(KEY_COURSE,dinnerClub.getCourse().getMainCourse());
         intent.putExtra(KEY_COOK,dinnerClub.getCook().getFirstName());
         String dateText = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(dinnerClub.getDate().getTime());
         intent.putExtra(KEY_DATE,dateText);

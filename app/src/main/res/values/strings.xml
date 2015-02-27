@@ -11,5 +11,14 @@
     <string name="title_activity_dinneclub_detail">DinneclubDetailActivity</string>
     <string name="calendar_title">Kalender</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_new_dinnerclub">newDinnerclubActivity</string>
+
+    <!--New dinnerclub-->
+    <string name="new_dinnerclub_title">Ny Madklub</string>
+    <string name="is_shopped_toggle_text">Købt ind?</string>
+    <string name="is_shopped_toggle_on">Ja</string>
+    <string name="is_shopped_toggle_off">Nej</string>
+    <string name="new_dinnerclub_maincourse_hint">Hovedret</string>
+    <string name="new_dinnerclub_sidecourse_hint">Sideret</string>
 
 </resources>

@@ -1,7 +1,9 @@
 package android_app.gg.peter.madklub.calendar;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import java.util.Locale;
 import android_app.gg.peter.madklub.R;
 import android_app.gg.peter.madklub.dinnerclub_detail.DinnerclubDetailActivity;
 import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
+import android_app.gg.peter.madklub.new_dinnerclub.NewDinnerclubActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,6 +103,8 @@ public class CalendarFragment extends Fragment {
             public void onDateSelected(Date date) {
                 calendar.selectDate(date);
                 // Open CreateDinneClub
+                Intent intent = new Intent(getActivity(), NewDinnerclubActivity.class);
+                ActivityCompat.startActivity(getActivity(), intent, null);
             }
 
             @Override

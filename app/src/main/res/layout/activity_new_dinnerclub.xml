@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="android_app.gg.peter.madklub.new_dinnerclub.newDinnerclubActivity">
+    <include layout="@layout/toolbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/is_shopped_toggle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/abc_text_size_headline_material"
+            android:paddingTop="@dimen/abc_action_bar_default_padding_material"
+            android:text="@string/is_shopped_toggle_text"
+            android:layout_centerHorizontal="true"/>
+        <ToggleButton
+            android:id="@+id/is_shopped_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/abc_text_size_body_1_material"
+            android:paddingTop="@dimen/abc_action_bar_default_padding_material"
+            android:layout_below="@id/is_shopped_toggle_text"
+            android:textOn="@string/is_shopped_toggle_on"
+            android:textOff="@string/is_shopped_toggle_off"
+            android:layout_centerHorizontal="true"/>
+        <EditText
+            android:id="@+id/main_course_text_edit"
+            android:layout_width="@dimen/abc_panel_menu_list_width"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/is_shopped_toggle"
+            android:hint="@string/new_dinnerclub_maincourse_hint"/>
+        <EditText
+            android:id="@+id/side_course_text_edit"
+            android:layout_width="@dimen/abc_panel_menu_list_width"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_below="@id/main_course_text_edit"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/new_dinnerclub_sidecourse_hint"/>
+        </RelativeLayout>
+
+</LinearLayout>
