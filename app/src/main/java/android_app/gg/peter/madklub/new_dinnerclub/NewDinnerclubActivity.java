@@ -1,21 +1,54 @@
 package android_app.gg.peter.madklub.new_dinnerclub;
 
+import android.app.LoaderManager;
+import android.content.Loader;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CursorAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.ToggleButton;
 
 import android_app.gg.peter.madklub.BaseActivity;
 import android_app.gg.peter.madklub.R;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnFocusChange;
 
-public class NewDinnerclubActivity extends BaseActivity {
+public class NewDinnerclubActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    // Load ids for getting suggestions from DB with loaderManager
+    private static final int SUGGEST_MAIN_COURSES = 201;
+    private static final int SUGGEST_SIDE_COURSES = 202;
+    @InjectView(R.id.main_course_text_edit) EditText mainCourse;
+    @InjectView(R.id.side_course_text_edit) EditText sideCourse;
+    @InjectView(android.R.id.list) ListView suggestions;
+    private CursorAdapter mAdapter;
+
+    @OnFocusChange(R.id.main_course_text_edit) void focusOnMainCourse(View v,boolean hasFocus){
+        // Suggest main courses
+        if(hasFocus){
+            getLoaderManager().initLoader(SUGGEST_MAIN_COURSES,null,this);
+        }
+    }
+
+    @OnFocusChange(R.id.side_course_text_edit) void focusOnSideCourse(View v,boolean hasFocus){
+        // Suggest side courses
+        if(hasFocus){
+            getLoaderManager().initLoader(SUGGEST_SIDE_COURSES,null,this);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(getResources().getString(R.string.new_dinnerclub_title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ButterKnife.inject(this);
+        mAdapter = new CourseSuggestionsAdapter(getApplicationContext(),null);
+        suggestions.setAdapter(mAdapter);
     }
 
     @Override
@@ -55,4 +88,29 @@ public class NewDinnerclubActivity extends BaseActivity {
             // Disable vibrate
         }
     }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        switch (id){
+            case SUGGEST_MAIN_COURSES:
+                //TODO
+                return null;
+            case SUGGEST_SIDE_COURSES:
+                //TODO
+                return null;
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if(cursor != null && cursor.moveToFirst()){
+            mAdapter.changeCursor(cursor);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {}
 }

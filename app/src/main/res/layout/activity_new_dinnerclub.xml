@@ -42,6 +42,11 @@
             android:layout_below="@id/main_course_text_edit"
             android:layout_centerHorizontal="true"
             android:hint="@string/new_dinnerclub_sidecourse_hint"/>
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/side_course_text_edit"/>
         </RelativeLayout>
 
 </LinearLayout>
