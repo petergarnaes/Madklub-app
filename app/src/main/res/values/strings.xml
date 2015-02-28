@@ -20,5 +20,6 @@
     <string name="is_shopped_toggle_off">Nej</string>
     <string name="new_dinnerclub_maincourse_hint">Hovedret</string>
     <string name="new_dinnerclub_sidecourse_hint">Sideret</string>
+    <string name="action_price">Pris</string>
 
 </resources>

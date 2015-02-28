@@ -59,8 +59,9 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_new_dinnerclub, menu);
+        getMenuInflater().inflate(R.menu.menu_dinneclub_detail, menu);
         return true;
     }
 
@@ -70,14 +71,15 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_price:
+                // Handle price selected
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
     public void onIsShoppedToggle(View view){
         // Is the toggle on?
         boolean on = ((ToggleButton) view).isChecked();
