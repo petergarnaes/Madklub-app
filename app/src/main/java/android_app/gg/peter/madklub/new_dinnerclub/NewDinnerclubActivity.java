@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
 
     @OnFocusChange(R.id.main_course_text_edit) void focusOnMainCourse(View v,boolean hasFocus){
         // Suggest main courses
+        Log.d("Madklub","focus on main courses");
         if(hasFocus){
             getLoaderManager().initLoader(SUGGEST_MAIN_COURSES,null,this);
         }
@@ -36,6 +38,7 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
 
     @OnFocusChange(R.id.side_course_text_edit) void focusOnSideCourse(View v,boolean hasFocus){
         // Suggest side courses
+        Log.d("Madklub","focus on side courses");
         if(hasFocus){
             getLoaderManager().initLoader(SUGGEST_SIDE_COURSES,null,this);
         }
@@ -61,7 +64,7 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_dinneclub_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_new_dinnerclub, menu);
         return true;
     }
 

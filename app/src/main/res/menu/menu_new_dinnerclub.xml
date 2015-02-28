@@ -2,6 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="android_app.gg.peter.madklub.new_dinnerclub.newDinnerclubActivity">
-    <item android:id="@+id/action_price" android:title="@string/action_price"
+    <item android:id="@+id/action_price" android:title="@string/action_price" android:icon="@drawable/price_icon"
         android:orderInCategory="3" app:showAsAction="always" />
 </menu>
