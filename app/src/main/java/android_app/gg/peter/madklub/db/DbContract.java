@@ -15,8 +15,7 @@ public class DbContract {
         //Meta data
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + Courses.TABLE_NAME);
         public static final String TABLE_NAME = "DinnerClub";
-        public static final String URI_TAG_ALL_COLUMNS = "allDinnerClub";
-        public static final String URI_TAG_DINNERCLUB_WITH_DATE = "DinnerClubWithDate";
+        public static final String URI_TAG_DINNERCLUB_QUERY = "DinnerClubQuery";
         //Fields
         public static final String date = "date";
         public static final String courseId = "courseId";
@@ -58,6 +57,7 @@ public class DbContract {
         //Meta data
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + Users.TABLE_NAME);
         public static final String TABLE_NAME = "Users";
+        public static final String URI_TAG_USER_QUERY = "userQuery";
         // Fields
         public static final String name = "name";
         //Statements
@@ -73,7 +73,7 @@ public class DbContract {
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + DinnerClubUsers.TABLE_NAME);
         public static final String TABLE_NAME = "DinnerClubUsers";
         public static final String URI_TAG_JOIN_DINNERCLUB_USERS = "joinDinnerClubUsers";
-        public static final String URI_TAG_REMOVEALL_WITH_DINNERCLUB_ID = "clearDinnerClubWithId";
+        public static final String URI_TAG_DINNERCLUB_USER_QUERY = "dinnerclubQuery";
         //Fields
         public static final String dinnerClubId = "dinnerClubId";
         public static final String userId = "userId";
