@@ -27,7 +27,7 @@ public class DbContract {
                 _ID+" INTEGER PRIMARY KEY, "+
                 date+" TEXT NOT NULL, "+
                 courseId+" INTEGER NOT NULL, "+
-                userCookId+"INTEGER NOT NULL, "+
+                userCookId+" INTEGER NOT NULL, "+
                 isShopped+"INTEGER DEFAULT 0, "+
                 youParticipating+"INTEGER DEFAULT 0, " +
                 "FOREIGN KEY ("+courseId+") REFERENCES "+Courses.TABLE_NAME+"("+Courses._ID+"), "+
@@ -39,7 +39,9 @@ public class DbContract {
         //Meta data
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + Courses.TABLE_NAME);
         public static final String TABLE_NAME = "Course";
-        public static final String URI_TAG_COURSES_FROM_TYPE = "allCourses";
+        public static final String URI_TAG_COURSES_QUERY = "allCourses";
+        public static final int MAIN_COURSE_ID = 0;
+        public static final int SIDE_COURSE_ID = 1;
         //Fields
         public static final String courseTypeId = "courseTypeId";
         public static final String courseName = "courseName";
@@ -78,7 +80,7 @@ public class DbContract {
         public static final String dinnerClubId = "dinnerClubId";
         public static final String userId = "userId";
         //Statements
-        public static final String CREATE_SQL_TABLE = "CREATE TABLE "+ Courses.TABLE_NAME+" ("+
+        public static final String CREATE_SQL_TABLE = "CREATE TABLE "+ DinnerClubUsers.TABLE_NAME+" ("+
                 _ID+" INTEGER PRIMARY KEY, "+
                 dinnerClubId+" INTEGER NOT NULL, "+
                 userId+" INTEGER NOT NULL, "+
