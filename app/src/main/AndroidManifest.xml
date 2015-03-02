@@ -23,8 +23,15 @@
         </activity>
         <activity
             android:name=".new_dinnerclub.NewDinnerclubActivity"
-            android:label="@string/title_activity_new_dinnerclub" >
+            android:label="@string/title_activity_new_dinnerclub"
+            android:parentActivityName=".OverlookActivity">
         </activity>
+        <provider
+            android:name="android_app.gg.peter.madklub.db.MadklubContentProvider"
+            android:authorities="android_app.gg.peter.madklub.provider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
     </application>
 
 </manifest>
