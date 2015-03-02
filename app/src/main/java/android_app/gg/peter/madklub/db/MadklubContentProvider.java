@@ -22,7 +22,7 @@ public class MadklubContentProvider extends ContentProvider {
     static{
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.DinnerClubs.URI_TAG_DINNERCLUB_QUERY,
                 DINNERCLUB_QUERY);
-        sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.Courses.URI_TAG_COURSES_FROM_TYPE,
+        sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.Courses.URI_TAG_COURSES_QUERY,
                 COURSE_QUERY);
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.Users.URI_TAG_USER_QUERY,
                 USER_QUERY);
