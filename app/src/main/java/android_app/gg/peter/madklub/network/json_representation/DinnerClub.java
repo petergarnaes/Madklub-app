@@ -11,6 +11,7 @@ public class DinnerClub {
     private Person cook;
     private boolean shopped;
     private boolean paticipating;
+    private float price;
 
     public DinnerClub(Calendar date,String cook,String course) {
         this.date = date;
@@ -56,5 +57,9 @@ public class DinnerClub {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public float getPrice() {
+        return price;
     }
 }
