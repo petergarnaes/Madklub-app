@@ -1,8 +1,10 @@
 package android_app.gg.peter.madklub.new_dinnerclub;
 
 import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.widget.ToggleButton;
 
 import android_app.gg.peter.madklub.BaseActivity;
 import android_app.gg.peter.madklub.R;
+import android_app.gg.peter.madklub.db.DbContract;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnFocusChange;
@@ -47,8 +50,8 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(getResources().getString(R.string.new_dinnerclub_title));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getResources().getString(R.string.new_dinnerclub_title));
         ButterKnife.inject(this);
         mAdapter = new CourseSuggestionsAdapter(getApplicationContext(),null);
         suggestions.setAdapter(mAdapter);
@@ -79,6 +82,7 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
                 // Handle price selected
                 return true;
             default:
+                Log.d("Madklub","Why you no go back?!");
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -88,21 +92,27 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
         boolean on = ((ToggleButton) view).isChecked();
 
         if (on) {
+            Log.d("Madklub","ON! Toggle works?");
             // Enable vibrate
         } else {
+            Log.d("Madklub","OFF! Toggle works?");
             // Disable vibrate
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = {DbContract.Courses.courseName};
+        String selection = DbContract.Courses.courseName+"=?";
         switch (id){
             case SUGGEST_MAIN_COURSES:
-                //TODO
-                return null;
+                String uri = DbContract.CONTENT_PREFIX+"/"+DbContract.Courses.URI_TAG_COURSES_QUERY;
+                String[] selectionArgs = {""+DbContract.Courses.MAIN_COURSE_ID};
+                return new CursorLoader(getApplicationContext(), Uri.parse(uri),projection,selection,selectionArgs,null);
             case SUGGEST_SIDE_COURSES:
-                //TODO
-                return null;
+                String uri2 = DbContract.CONTENT_PREFIX+"/"+DbContract.Courses.URI_TAG_COURSES_QUERY;
+                String[] selectionArgs2 = {""+DbContract.Courses.SIDE_COURSE_ID};
+                return new CursorLoader(getApplicationContext(), Uri.parse(uri2),projection,selection,selectionArgs2,null);
             default:
                 return null;
         }
@@ -114,6 +124,7 @@ public class NewDinnerclubActivity extends BaseActivity implements LoaderManager
             mAdapter.changeCursor(cursor);
             mAdapter.notifyDataSetChanged();
         }
+        // TODO else download from server
     }
 
     @Override
