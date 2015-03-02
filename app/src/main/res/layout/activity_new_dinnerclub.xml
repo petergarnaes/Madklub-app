@@ -22,6 +22,7 @@
             android:gravity="center_horizontal"
             android:textSize="@dimen/abc_text_size_body_1_material"
             android:paddingTop="@dimen/abc_action_bar_default_padding_material"
+            android:onClick="onIsShoppedToggle"
             android:layout_below="@id/is_shopped_toggle_text"
             android:textOn="@string/is_shopped_toggle_on"
             android:textOff="@string/is_shopped_toggle_off"
