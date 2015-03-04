@@ -64,10 +64,10 @@ public class MadklubSyncAdapter extends AbstractThreadedSyncAdapter {
             final boolean getCourses = extras.getBoolean(SYNC_COURSES, true);
             final boolean getDinnerclubs = extras.getBoolean(SYNC_DINNERCLUBS, true);
             if(getCourses){
-                batch.addAll(new CourseFetchSynchronizer().fetchAndParse(madklubService));
+                batch.addAll(new CourseFetchSynchronizer().fetchAndParse(provider,madklubService));
             }
             if(getDinnerclubs){
-                batch.addAll(new DinnerclubFetchSynchronizer().fetchAndParse(madklubService));
+                batch.addAll(new DinnerclubFetchSynchronizer().fetchAndParse(provider,madklubService));
             }
         }
         try {
