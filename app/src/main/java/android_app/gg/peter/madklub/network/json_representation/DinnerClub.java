@@ -15,11 +15,7 @@ public class DinnerClub {
     private float price;
     private List<Person> participants;
 
-    public DinnerClub(String date,String cook,String course) {
-        this.date = date;
-        this.cook = new Person(cook);
-        this.course = new Course(course);
-    }
+    public DinnerClub() {}
 
     public String getDate() {
         return date;
