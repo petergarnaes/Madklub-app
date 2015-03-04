@@ -2,10 +2,7 @@ package android_app.gg.peter.madklub;
 
 import android.os.Bundle;
 
-import java.util.Calendar;
-
 import android_app.gg.peter.madklub.calendar.CalendarFragment;
-import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
 import android_app.gg.peter.madklub.overlook.OverlookFragment;
 
 
@@ -44,16 +41,4 @@ public class OverlookActivity extends BaseActivity implements CalendarFragment.C
         onBackPressed();
     }
 
-    public DinnerClub[] getTestData(){
-        DinnerClub[] dc = new DinnerClub[11];
-        for(int i = 0;i < 10;i++){
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.DAY_OF_MONTH,i);
-//            dc[i] = new DinnerClub(cal,cooks[i],courses[i]);
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH,40);
-//        dc[10] = new DinnerClub(cal,"bobby","Salat");
-        return dc;
-    }
 }
