@@ -33,6 +33,7 @@ public class DbContract {
         public static final String userCookId = "userCookId";
         public static final String isShopped = "isShopped";
         public static final String youParticipating = "youParticipating";
+        public static final String price = "price";
         //Statements
         public static final String CREATE_SQL_TABLE = "CREATE TABLE "+ DinnerClubs.TABLE_NAME+" ("+
                 CREATE_TABLE_BASE_FIELDS+
@@ -42,6 +43,7 @@ public class DbContract {
                 userCookId+" INTEGER NOT NULL, "+
                 isShopped+"INTEGER DEFAULT 0, "+
                 youParticipating+"INTEGER DEFAULT 0, " +
+                price+"REAL, "+
                 "FOREIGN KEY ("+mainCourseId+") REFERENCES "+Courses.TABLE_NAME+"("+Courses._ID+"), "+
                 "FOREIGN KEY ("+sideCourseId+") REFERENCES "+Courses.TABLE_NAME+"("+Courses._ID+"), "+
                 "FOREIGN KEY ("+userCookId+") REFERENCES "+Users.TABLE_NAME+"("+Users._ID+"));";
