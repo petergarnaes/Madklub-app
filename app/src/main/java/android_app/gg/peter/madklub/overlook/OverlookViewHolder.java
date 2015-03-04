@@ -7,25 +7,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import android_app.gg.peter.madklub.R;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by peter on 2/21/15.
  */
 public class OverlookViewHolder extends RecyclerView.ViewHolder {
-    public ImageView dish;
-    public TextView date;
-    public TextView menu;
-    public TextView cook;
-    public Button participatingButton;
-    public Button notParticipatingButton;
+    @InjectView(R.id.overlook_image) ImageView dish;
+    @InjectView(R.id.date_text_view) TextView date;
+    @InjectView(R.id.menu_text_view) TextView menu;
+    @InjectView(R.id.cook_text_view) TextView cook;
+    @InjectView(R.id.button_participating) Button participatingButton;
+    @InjectView(R.id.button_not_participating) Button notParticipatingButton;
 
     public OverlookViewHolder(View itemView) {
         super(itemView);
-        dish = (ImageView) itemView.findViewById(R.id.overlook_image);
-        date = (TextView) itemView.findViewById(R.id.date_text_view);
-        menu = (TextView) itemView.findViewById(R.id.menu_text_view);
-        cook = (TextView) itemView.findViewById(R.id.cook_text_view);
-        participatingButton = (Button) itemView.findViewById(R.id.button_participating);
-        notParticipatingButton = (Button) itemView.findViewById(R.id.button_not_participating);
+        ButterKnife.inject(this, itemView);
     }
 }

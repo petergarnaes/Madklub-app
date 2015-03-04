@@ -1,5 +1,6 @@
 package android_app.gg.peter.madklub.overlook;
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +12,16 @@ import java.util.Locale;
 import android_app.gg.peter.madklub.OverlookActivity;
 import android_app.gg.peter.madklub.R;
 import android_app.gg.peter.madklub.dinnerclub_detail.DinnerclubDetailActivity;
-import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
 
 /**
  * Created by peter on 2/21/15.
  */
-public class OverlookAdapter extends RecyclerView.Adapter<OverlookViewHolder> {
+public class OverlookAdapter extends CursorRecyclerViewAdapter<OverlookViewHolder> {
     private OverlookActivity mContext;
-    private DinnerClub[] data;
     private RecyclerView mRecyclerview;
 
-    public OverlookAdapter(OverlookActivity context,RecyclerView recyclerView, DinnerClub[] data) {
-        this.data = data;
+    public OverlookAdapter(OverlookActivity context,RecyclerView recyclerView) {
+        super(context,null);
         mRecyclerview = recyclerView;
         mContext = context;
     }
@@ -30,52 +29,47 @@ public class OverlookAdapter extends RecyclerView.Adapter<OverlookViewHolder> {
     @Override
     public OverlookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.overlook_cardview, parent, false);
-        v.setOnClickListener(new View.OnClickListener() {
+        final OverlookViewHolder viewHolder = new OverlookViewHolder(v);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int i = mRecyclerview.getChildPosition(v);
-                DinnerClub d = data[i];
                 DinnerclubDetailActivity.launchFromOverlook(mContext, v.findViewById(R.id.overlook_image),
-                        "bob", v.findViewById(R.id.table_cook_course), d.getCourse().getMainCourse(),
-                        d.getCook().getFirstName(), DateFormat.getDateInstance(DateFormat.SHORT,
-                                Locale.getDefault()).format(d.getDate().getTime()), d.isPaticipating());
-//                Intent intent = new Intent(mContext, DinnerclubDetailActivity.class);
-//                mContext.startActivity(intent);
+                        "bob", v.findViewById(R.id.table_cook_course), viewHolder.menu.getText().toString(),
+                        viewHolder.cook.getText().toString(), viewHolder.date.getText().toString(),
+                        (viewHolder.participatingButton.isSelected()));
             }
         });
-        return new OverlookViewHolder(v);
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(final OverlookViewHolder holder, int position) {
-        final DinnerClub dinnerClub = data[position];
-        String dateText = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(dinnerClub.getDate().getTime());
-        holder.date.setText(dateText);
-        holder.menu.setText(dinnerClub.getCourse().getMainCourse());
-        holder.cook.setText(dinnerClub.getCook().getFirstName());
-        holder.participatingButton.setSelected(dinnerClub.isPaticipating());
-        holder.participatingButton.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final OverlookViewHolder viewHolder, Cursor cursor) {
+        // Cursor column 0 is _id
+        // Cursor column 1 is the date text
+        String dateText = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(cursor.getString(1));
+        viewHolder.date.setText(dateText);
+        // Cursor column 2 is the main course and column 3 is the side course
+        viewHolder.menu.setText(cursor.getString(2)+" med "+cursor.getString(3));
+        // Cursor column 4 is the cooks full name
+        viewHolder.cook.setText(cursor.getString(4));
+        // Cursor column 5 is the boolean for wether user participates
+        boolean participates = (cursor.getInt(5)==1);
+        viewHolder.participatingButton.setSelected(participates);
+        viewHolder.participatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dinnerClub.setPaticipating(true);
-                holder.participatingButton.setSelected(true);
-                holder.notParticipatingButton.setSelected(false);
+                viewHolder.participatingButton.setSelected(true);
+                viewHolder.notParticipatingButton.setSelected(false);
             }
         });
-        holder.notParticipatingButton.setSelected(!dinnerClub.isPaticipating());
-        holder.notParticipatingButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.notParticipatingButton.setSelected(!participates);
+        viewHolder.notParticipatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dinnerClub.setPaticipating(false);
-                holder.notParticipatingButton.setSelected(true);
-                holder.participatingButton.setSelected(false);
+                viewHolder.notParticipatingButton.setSelected(true);
+                viewHolder.participatingButton.setSelected(false);
             }
         });
 //        holder.dish.setImageDrawable(mContext.getResources().getDrawable(R.drawable.noodles));
-    }
-
-    @Override
-    public int getItemCount() {
-        return data.length;
     }
 }
