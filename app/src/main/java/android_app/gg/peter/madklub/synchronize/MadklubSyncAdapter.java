@@ -1,4 +1,4 @@
-package android_app.gg.peter.madklub.network;
+package android_app.gg.peter.madklub.synchronize;
 
 import android.accounts.Account;
 import android.content.AbstractThreadedSyncAdapter;
@@ -13,8 +13,10 @@ import android.os.RemoteException;
 
 import java.util.ArrayList;
 
+import android_app.gg.peter.madklub.network.MadklubService;
 import android_app.gg.peter.madklub.network.synchronizers.CourseFetchSynchronizer;
 import android_app.gg.peter.madklub.network.synchronizers.DinnerclubFetchSynchronizer;
+import android_app.gg.peter.madklub.network.synchronizers.DinnerclubUploadSynchronizer;
 import retrofit.RestAdapter;
 
 /**
@@ -55,25 +57,26 @@ public class MadklubSyncAdapter extends AbstractThreadedSyncAdapter {
                               ContentProviderClient provider, SyncResult syncResult) {
         MadklubService madklubService = getMadklubService();
         final boolean uploadOnly = extras.getBoolean(ContentResolver.SYNC_EXTRAS_UPLOAD, false);
+        ArrayList<ContentProviderOperation> batch = new ArrayList<>();
         if(uploadOnly){
             // Use contentProvider to find the lines in db that are changed
+            batch.addAll(new DinnerclubUploadSynchronizer().uploadAndParse(provider,madklubService));
         } else {
             final boolean getCourses = extras.getBoolean(SYNC_COURSES, true);
             final boolean getDinnerclubs = extras.getBoolean(SYNC_DINNERCLUBS, true);
-            ArrayList<ContentProviderOperation> batch = new ArrayList<>();
             if(getCourses){
                 batch.addAll(new CourseFetchSynchronizer().fetchAndParse(madklubService));
             }
             if(getDinnerclubs){
                 batch.addAll(new DinnerclubFetchSynchronizer().fetchAndParse(madklubService));
             }
-            try {
-                provider.applyBatch(batch);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            } catch (OperationApplicationException e) {
-                e.printStackTrace();
-            }
+        }
+        try {
+            provider.applyBatch(batch);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (OperationApplicationException e) {
+            e.printStackTrace();
         }
         //TODO on schedueled sync, perform both upload and fetch
     }
