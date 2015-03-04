@@ -59,7 +59,6 @@ public class MadklubSyncAdapter extends AbstractThreadedSyncAdapter {
         final boolean uploadOnly = extras.getBoolean(ContentResolver.SYNC_EXTRAS_UPLOAD, false);
         ArrayList<ContentProviderOperation> batch = new ArrayList<>();
         if(uploadOnly){
-            // Use contentProvider to find the lines in db that are changed
             batch.addAll(new DinnerclubUploadSynchronizer().uploadAndParse(provider,madklubService));
         } else {
             final boolean getCourses = extras.getBoolean(SYNC_COURSES, true);

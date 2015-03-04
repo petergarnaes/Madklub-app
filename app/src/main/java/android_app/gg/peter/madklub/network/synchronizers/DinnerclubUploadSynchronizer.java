@@ -13,6 +13,8 @@ import android_app.gg.peter.madklub.network.MadklubService;
 public class DinnerclubUploadSynchronizer implements MadklubUploadSynchronizer {
     @Override
     public ArrayList<ContentProviderOperation> uploadAndParse(ContentProviderClient provider, MadklubService service) {
+        // If new to server then update ID, existsOnServer and syncedWithServer field,
+        // if just update then update the syncedWithServer field
         return null;
     }
 }
