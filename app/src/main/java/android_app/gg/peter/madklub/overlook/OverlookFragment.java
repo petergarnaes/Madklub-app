@@ -1,8 +1,13 @@
 package android_app.gg.peter.madklub.overlook;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +19,7 @@ import android.view.ViewGroup;
 
 import android_app.gg.peter.madklub.OverlookActivity;
 import android_app.gg.peter.madklub.R;
+import android_app.gg.peter.madklub.db.DbContract;
 import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
 
 /**
@@ -24,9 +30,10 @@ import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
  * Use the {@link OverlookFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OverlookFragment extends Fragment {
+public class OverlookFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final int GET_DINNERCLUBS = 701;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private CursorRecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private OverlookListener mListener;
 
@@ -93,8 +100,9 @@ public class OverlookFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new OverlookAdapter((OverlookActivity)getActivity(),mRecyclerView,mListener.getTestData());
+        mAdapter = new OverlookAdapter((OverlookActivity)getActivity(),mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+        getLoaderManager().initLoader(GET_DINNERCLUBS,null,this);
         return rootView;
     }
 
@@ -113,6 +121,31 @@ public class OverlookFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = {DbContract.DinnerClubs._ID,
+            DbContract.DinnerClubs.date,
+            DbContract.DinnerClubs.mainCourseId,
+            DbContract.DinnerClubs.sideCourseId,
+            DbContract.Users.name,
+            DbContract.DinnerClubs.youParticipating};
+        String uri = DbContract.CONTENT_PREFIX+"/"+DbContract.DinnerClubs.URI_TAG_DINNERCLUB_WITH_COOK_NAME;
+        return new CursorLoader(getActivity().getApplicationContext(), Uri.parse(uri),projection,null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if(cursor != null && cursor.moveToFirst()){
+            mAdapter.changeCursor(cursor);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 
     /**
