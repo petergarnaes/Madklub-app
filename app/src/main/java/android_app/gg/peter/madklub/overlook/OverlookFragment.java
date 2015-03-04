@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android_app.gg.peter.madklub.OverlookActivity;
 import android_app.gg.peter.madklub.R;
 import android_app.gg.peter.madklub.db.DbContract;
-import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -160,7 +159,6 @@ public class OverlookFragment extends Fragment implements LoaderManager.LoaderCa
      */
     public interface OverlookListener {
         public void selectCalendarView();
-        public DinnerClub[] getTestData();
 //        public void onFragmentInteraction(Uri uri);
     }
 }
