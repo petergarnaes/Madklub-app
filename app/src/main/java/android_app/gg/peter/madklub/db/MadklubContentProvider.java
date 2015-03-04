@@ -12,16 +12,19 @@ import android.net.Uri;
  */
 public class MadklubContentProvider extends ContentProvider {
     private static final int DINNERCLUB_QUERY = 2;
-    private static final int COURSE_QUERY = 3;
-    private static final int USER_QUERY = 4;
-    private static final int DINNERCLUB_USER_JOIN = 5;
-    private static final int DINNERCLUB_USER_QUERY = 6;
+    private static final int DINNERCLUB_WITH_COOK_NAME = 3;
+    private static final int COURSE_QUERY = 4;
+    private static final int USER_QUERY = 5;
+    private static final int DINNERCLUB_USER_JOIN = 6;
+    private static final int DINNERCLUB_USER_QUERY = 7;
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     // URI's to identify by URImatcher
     static{
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.DinnerClubs.URI_TAG_DINNERCLUB_QUERY,
                 DINNERCLUB_QUERY);
+        sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.DinnerClubs.URI_TAG_DINNERCLUB_WITH_COOK_NAME,
+                DINNERCLUB_WITH_COOK_NAME);
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.Courses.URI_TAG_COURSES_QUERY,
                 COURSE_QUERY);
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.Users.URI_TAG_USER_QUERY,
@@ -46,6 +49,13 @@ public class MadklubContentProvider extends ContentProvider {
         switch (match){
             case DINNERCLUB_QUERY:
                 return db.query(DbContract.DinnerClubs.TABLE_NAME, projection, selection,
+                        selectionArgs, null, null, sortOrder);
+            case DINNERCLUB_WITH_COOK_NAME:
+                String dinnerclubJoinedWithUsers = DbContract.DinnerClubs.TABLE_NAME+
+                        " INNER JOIN "+DbContract.Users.TABLE_NAME+
+                        " ON ("+DbContract.DinnerClubs.TABLE_NAME+"."+DbContract.DinnerClubs.userCookId+
+                        "="+DbContract.Users.TABLE_NAME+"."+DbContract.Users._ID+")";
+                return db.query(dinnerclubJoinedWithUsers, projection, selection,
                         selectionArgs, null, null, sortOrder);
             case COURSE_QUERY:
                 return db.query(DbContract.Courses.TABLE_NAME, projection, selection,
