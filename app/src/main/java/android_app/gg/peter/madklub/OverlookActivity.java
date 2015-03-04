@@ -19,7 +19,7 @@ public class OverlookActivity extends BaseActivity implements CalendarFragment.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .replace(R.id.overlook_container, OverlookFragment.newInstance())
                 .commit();
     }
@@ -32,7 +32,7 @@ public class OverlookActivity extends BaseActivity implements CalendarFragment.C
 
     @Override
     public void selectCalendarView() {
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .setCustomAnimations(R.anim.right_in, R.anim.left_out, R.anim.left_in, R.anim.right_out)
                 .replace(R.id.overlook_container, CalendarFragment.newInstance())
                 .addToBackStack(null)
@@ -49,11 +49,11 @@ public class OverlookActivity extends BaseActivity implements CalendarFragment.C
         for(int i = 0;i < 10;i++){
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DAY_OF_MONTH,i);
-            dc[i] = new DinnerClub(cal,cooks[i],courses[i]);
+//            dc[i] = new DinnerClub(cal,cooks[i],courses[i]);
         }
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_MONTH,40);
-        dc[10] = new DinnerClub(cal,"bobby","Salat");
+//        dc[10] = new DinnerClub(cal,"bobby","Salat");
         return dc;
     }
 }
