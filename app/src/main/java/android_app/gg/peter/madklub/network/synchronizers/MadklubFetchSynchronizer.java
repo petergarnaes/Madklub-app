@@ -2,6 +2,7 @@ package android_app.gg.peter.madklub.network.synchronizers;
 
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
+import android.os.RemoteException;
 
 import java.util.ArrayList;
 
@@ -12,5 +13,5 @@ import android_app.gg.peter.madklub.network.MadklubService;
  */
 public interface MadklubFetchSynchronizer {
     public ArrayList<ContentProviderOperation> fetchAndParse(ContentProviderClient provider,
-                                                             MadklubService madklubService);
+                                                             MadklubService madklubService) throws RemoteException;
 }

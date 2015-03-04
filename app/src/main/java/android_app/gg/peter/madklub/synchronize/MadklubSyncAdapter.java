@@ -55,22 +55,22 @@ public class MadklubSyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority,
                               ContentProviderClient provider, SyncResult syncResult) {
-        MadklubService madklubService = getMadklubService();
-        final boolean uploadOnly = extras.getBoolean(ContentResolver.SYNC_EXTRAS_UPLOAD, false);
-        ArrayList<ContentProviderOperation> batch = new ArrayList<>();
-        if(uploadOnly){
-            batch.addAll(new DinnerclubUploadSynchronizer().uploadAndParse(provider,madklubService));
-        } else {
-            final boolean getCourses = extras.getBoolean(SYNC_COURSES, true);
-            final boolean getDinnerclubs = extras.getBoolean(SYNC_DINNERCLUBS, true);
-            if(getCourses){
-                batch.addAll(new CourseFetchSynchronizer().fetchAndParse(provider,madklubService));
-            }
-            if(getDinnerclubs){
-                batch.addAll(new DinnerclubFetchSynchronizer().fetchAndParse(provider,madklubService));
-            }
-        }
         try {
+            MadklubService madklubService = getMadklubService();
+            final boolean uploadOnly = extras.getBoolean(ContentResolver.SYNC_EXTRAS_UPLOAD, false);
+            ArrayList<ContentProviderOperation> batch = new ArrayList<>();
+            if(uploadOnly){
+                batch.addAll(new DinnerclubUploadSynchronizer().uploadAndParse(provider,madklubService));
+            } else {
+                final boolean getCourses = extras.getBoolean(SYNC_COURSES, true);
+                final boolean getDinnerclubs = extras.getBoolean(SYNC_DINNERCLUBS, true);
+                if(getCourses){
+                    batch.addAll(new CourseFetchSynchronizer().fetchAndParse(provider,madklubService));
+                }
+                if(getDinnerclubs){
+                    batch.addAll(new DinnerclubFetchSynchronizer().fetchAndParse(provider,madklubService));
+                }
+            }
             provider.applyBatch(batch);
         } catch (RemoteException e) {
             e.printStackTrace();

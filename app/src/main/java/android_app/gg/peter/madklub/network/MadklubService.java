@@ -17,6 +17,9 @@ public interface MadklubService {
     @GET("/courses/list/{typeId}")
     public List<Course> getCourseByTypeId(@Path("typeId") int typeId);
 
+    @GET("/courses/list/all")
+    public List<Course> getCourses();
+
     @GET("/dinnerclub/list")
     public List<DinnerClub> getDinnerclubList();
 
