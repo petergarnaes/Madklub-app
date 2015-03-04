@@ -11,7 +11,16 @@ public class DbContract {
     public static final String CONTENT_PREFIX = "content://"+AUTHORITY;
     public DbContract(){}
 
-    public static abstract class DinnerClubs implements BaseColumns {
+    public interface BaseTable extends BaseColumns {
+        public static final String syncedWithServer = "syncedWithServer";
+        public static final String existsOnServer = "existsOnServer";
+
+        public static final String CREATE_TABLE_BASE_FIELDS = _ID+" INTEGER PRIMARY KEY, "+
+                syncedWithServer+" INTEGER DEFAULT 0, "+
+                existsOnServer+" INTEGER DEFAULT 0, ";
+    }
+
+    public static abstract class DinnerClubs implements BaseTable {
         //Meta data
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + Courses.TABLE_NAME);
         public static final String TABLE_NAME = "DinnerClub";
@@ -24,7 +33,7 @@ public class DbContract {
         public static final String youParticipating = "youParticipating";
         //Statements
         public static final String CREATE_SQL_TABLE = "CREATE TABLE "+ DinnerClubs.TABLE_NAME+" ("+
-                _ID+" INTEGER PRIMARY KEY, "+
+                CREATE_TABLE_BASE_FIELDS+
                 date+" TEXT NOT NULL, "+
                 courseId+" INTEGER NOT NULL, "+
                 userCookId+" INTEGER NOT NULL, "+
@@ -35,7 +44,7 @@ public class DbContract {
         public static final String DELETE_SQL_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
     }
 
-    public static abstract class Courses implements BaseColumns {
+    public static abstract class Courses implements BaseTable {
         //Meta data
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + Courses.TABLE_NAME);
         public static final String TABLE_NAME = "Course";
@@ -48,14 +57,14 @@ public class DbContract {
         public static final String imageUrlTag = "imageUrlTag";
         //Statements
         public static final String CREATE_SQL_TABLE = "CREATE TABLE "+ Courses.TABLE_NAME+" ("+
-                _ID+" INTEGER PRIMARY KEY, "+
+                CREATE_TABLE_BASE_FIELDS+
                 courseTypeId+" INTEGER NOT NULL, "+
                 imageUrlTag+" TEXT, "+
                 courseName+" TEXT NOT NULL);";
         public static final String DELETE_SQL_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
     }
 
-    public static abstract class Users implements BaseColumns {
+    public static abstract class Users implements BaseTable {
         //Meta data
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + Users.TABLE_NAME);
         public static final String TABLE_NAME = "Users";
@@ -64,13 +73,13 @@ public class DbContract {
         public static final String name = "name";
         //Statements
         public static final String CREATE_SQL_TABLE = "CREATE TABLE "+Users.TABLE_NAME+" ("+
-                _ID+" INTEGER PRIMARY KEY,"+
+                CREATE_TABLE_BASE_FIELDS+
 //                courseTypeId+" INTEGER,"+
                 name+" TEXT);";
         public static final String DELETE_SQL_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
     }
 
-    public static abstract class DinnerClubUsers implements BaseColumns {
+    public static abstract class DinnerClubUsers implements BaseTable {
         //Meta data
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX + "/" + DinnerClubUsers.TABLE_NAME);
         public static final String TABLE_NAME = "DinnerClubUsers";
@@ -81,7 +90,7 @@ public class DbContract {
         public static final String userId = "userId";
         //Statements
         public static final String CREATE_SQL_TABLE = "CREATE TABLE "+ DinnerClubUsers.TABLE_NAME+" ("+
-                _ID+" INTEGER PRIMARY KEY, "+
+                CREATE_TABLE_BASE_FIELDS+
                 dinnerClubId+" INTEGER NOT NULL, "+
                 userId+" INTEGER NOT NULL, "+
                 "FOREIGN KEY ("+dinnerClubId+") REFERENCES "+DinnerClubs.TABLE_NAME+"("+ DinnerClubs._ID+"),"+
