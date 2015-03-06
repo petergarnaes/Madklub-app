@@ -24,6 +24,7 @@ import butterknife.OnFocusChange;
 
 public class NewDinnerclubActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     // Load ids for getting suggestions from DB with loaderManager
+    public static final String KEY_DATE = "NewDInnerclubActivit:key";
     private static final int SUGGEST_MAIN_COURSES = 201;
     private static final int SUGGEST_SIDE_COURSES = 202;
     @InjectView(R.id.main_course_text_edit) EditText mainCourse;
