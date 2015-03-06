@@ -2,7 +2,12 @@ package android_app.gg.peter.madklub.calendar;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -16,11 +21,15 @@ import android.view.ViewGroup;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import android_app.gg.peter.madklub.R;
+import android_app.gg.peter.madklub.Utils;
+import android_app.gg.peter.madklub.db.DbContract;
 import android_app.gg.peter.madklub.dinnerclub_detail.DinnerclubDetailActivity;
 import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
 import android_app.gg.peter.madklub.new_dinnerclub.NewDinnerclubActivity;
@@ -33,8 +42,10 @@ import android_app.gg.peter.madklub.new_dinnerclub.NewDinnerclubActivity;
  * Use the {@link CalendarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+    public static final int CALENDAR_RANGE_MONTHS = 2;
     private CalendarFragmentListener mListener;
+    private CalendarPickerView calendar;
 
     /**
      * Use this factory method to create a new instance of
@@ -44,7 +55,7 @@ public class CalendarFragment extends Fragment {
      */
     public static CalendarFragment newInstance() {
         CalendarFragment fragment = new CalendarFragment();
-        Bundle args = new Bundle();
+//        Bundle args = new Bundle();
 //        fragment.setArguments(args);
         return fragment;
     }
@@ -57,11 +68,6 @@ public class CalendarFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-//        hasOptionsMenu();
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
@@ -76,9 +82,6 @@ public class CalendarFragment extends Fragment {
             case R.id.action_cardview:
                 mListener.selectCardView();
                 return true;
-//            case R.id.fragment_menu_item:
-//                // Not implemented here
-//                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -89,46 +92,29 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.overlook_calendar, container, false);
-        final CalendarPickerView calendar = (CalendarPickerView)rootView.findViewById(R.id.calendar_view);
+        calendar = (CalendarPickerView)rootView.findViewById(R.id.calendar_view);
         Calendar startDate = Calendar.getInstance();
         Calendar maxDate = Calendar.getInstance();
         maxDate.add(Calendar.MONTH, 2);
         calendar.init(startDate.getTime(),maxDate.getTime(), Locale.getDefault()).inMode(CalendarPickerView.SelectionMode.MULTIPLE);
-        for(DinnerClub club : mListener.getTestData()){
-            calendar.selectDate(club.getDate().getTime());
-        }
-        calendar.smoothScrollToPositionFromTop(0,0,0);
         calendar.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
                 calendar.selectDate(date);
-                // Open CreateDinneClub
+                // Open CreateDinnerClub
                 Intent intent = new Intent(getActivity(), NewDinnerclubActivity.class);
+                intent.putExtra(NewDinnerclubActivity.KEY_DATE,Utils.formatDateToString(date));
                 ActivityCompat.startActivity(getActivity(), intent, null);
             }
 
             @Override
             public void onDateUnselected(Date date) {
                 calendar.selectDate(date);
-                Log.d("Wiosoft","Date is: "+DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(date));
-                // Open DinnerClubDetail temporary solution
-                DinnerClub d = null;
-                for(DinnerClub dinnerClub : mListener.getTestData()){
-                    Calendar cal1 = Calendar.getInstance();
-                    Calendar cal2 = Calendar.getInstance();
-                    cal1.setTime(date);
-                    cal2.setTime(dinnerClub.getDate().getTime());
-                    boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                            cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
-//                    Log.d("Wiosoft","Data date is: "+DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(dinnerClub.getDate().getTime()));
-                    if(sameDay){
-                        Log.d("Wiosoft","We got a date");
-                        d = dinnerClub;
-                    }
-                }
-                DinnerclubDetailActivity.launchFromCalendar(getActivity(),d);
+                Log.d("Wiosoft", "Date is: " + DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault()).format(date));
+                DinnerclubDetailActivity.launchFromCalendar(getActivity(), date);
             }
         });
+        getLoaderManager().initLoader(0, null, this);
         return rootView;
     }
 
@@ -149,6 +135,35 @@ public class CalendarFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle loadArgs) {
+        Uri uri = Uri.parse(DbContract.CONTENT_PREFIX+"/"+DbContract.DinnerClubs.URI_TAG_DINNERCLUB_QUERY);
+        String[] projection = new String[]{DbContract.DinnerClubs.date};
+        String selection = "julianday("+DbContract.DinnerClubs.date+") < julianday(?)";
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, CALENDAR_RANGE_MONTHS);
+        String[] args = new String[]{Utils.formatDateToString(cal.getTime())};
+        return new CursorLoader(getActivity().getApplicationContext(),uri,projection,selection,args,null);
+    }
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        // Cursor holds data
+        if(cursor != null && cursor.moveToFirst()){
+            Calendar cal = Calendar.getInstance();
+            while(cursor.moveToNext()){
+                cal.setTime(Utils.parseToDate(cursor.getString(0)));
+                calendar.selectDate(cal.getTime());
+            }
+            // Cursor not needed anymore
+            cursor.close();
+            calendar.smoothScrollToPositionFromTop(0,0,0);
+        }
+    }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -161,7 +176,6 @@ public class CalendarFragment extends Fragment {
      */
     public interface CalendarFragmentListener {
         public void selectCardView();
-        public DinnerClub[] getTestData();
 //        public void onFragmentInteraction(Uri uri);
     }
 
