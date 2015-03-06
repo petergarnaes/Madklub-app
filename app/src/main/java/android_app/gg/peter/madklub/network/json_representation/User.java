@@ -3,13 +3,13 @@ package android_app.gg.peter.madklub.network.json_representation;
 /**
  * Created by peter on 2/21/15.
  */
-public class Person {
+public class User {
     private String firstName;
     private String middleName;
     private String lastName;
     private String room;
 
-    public Person(String name){
+    public User(String name){
         firstName = name;
     }
 

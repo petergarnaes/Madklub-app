@@ -9,11 +9,11 @@ public class DinnerClub {
     private int id;
     private String date;
     private Course course;
-    private Person cook;
+    private User cook;
     private boolean shopped;
     private boolean paticipating;
     private float price;
-    private List<Person> participants;
+    private List<User> participants;
 
     public DinnerClub() {}
 
@@ -21,7 +21,7 @@ public class DinnerClub {
         return date;
     }
 
-    public Person getCook() {
+    public User getCook() {
         return cook;
     }
 
@@ -40,7 +40,7 @@ public class DinnerClub {
     public float getPrice() {
         return price;
     }
-    public List<Person> getParticipants() {
+    public List<User> getParticipants() {
         return participants;
     }
 

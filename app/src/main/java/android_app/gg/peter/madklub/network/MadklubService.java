@@ -4,7 +4,7 @@ import java.util.List;
 
 import android_app.gg.peter.madklub.network.json_representation.Course;
 import android_app.gg.peter.madklub.network.json_representation.DinnerClub;
-import android_app.gg.peter.madklub.network.json_representation.Person;
+import android_app.gg.peter.madklub.network.json_representation.User;
 import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
@@ -24,7 +24,7 @@ public interface MadklubService {
     public List<DinnerClub> getDinnerclubList();
 
     @GET("/participants/list/{dinnerclubID}")
-    public List<Person> getParticipantsForDinnerclub(@Path("dinnerclubID") int dinnerclubID);
+    public List<User> getParticipantsForDinnerclub(@Path("dinnerclubID") int dinnerclubID);
 
     /**
      * Will create a new dinnerclub on the server, will get the true ID returned to be updated
