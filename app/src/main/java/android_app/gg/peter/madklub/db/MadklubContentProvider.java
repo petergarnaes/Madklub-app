@@ -17,6 +17,7 @@ public class MadklubContentProvider extends ContentProvider {
     private static final int USER_QUERY = 5;
     private static final int DINNERCLUB_USER_JOIN = 6;
     private static final int DINNERCLUB_USER_QUERY = 7;
+    private static final int DINNERCLUB_WITH_COOK_AND_COURSE = 8;
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     // URI's to identify by URImatcher
@@ -25,6 +26,8 @@ public class MadklubContentProvider extends ContentProvider {
                 DINNERCLUB_QUERY);
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.DinnerClubs.URI_TAG_DINNERCLUB_WITH_COOK_NAME,
                 DINNERCLUB_WITH_COOK_NAME);
+        sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.DinnerClubs.URI_TAG_DINNERCLUB_WITH_COOK_AND_COURSE,
+                DINNERCLUB_WITH_COOK_AND_COURSE);
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.Courses.URI_TAG_COURSES_QUERY,
                 COURSE_QUERY);
         sURIMatcher.addURI(DbContract.AUTHORITY,DbContract.Users.URI_TAG_USER_QUERY,
@@ -56,6 +59,23 @@ public class MadklubContentProvider extends ContentProvider {
                         " ON ("+DbContract.DinnerClubs.TABLE_NAME+"."+DbContract.DinnerClubs.userCookId+
                         "="+DbContract.Users.TABLE_NAME+"."+DbContract.Users._ID+")";
                 return db.query(dinnerclubJoinedWithUsers, projection, selection,
+                        selectionArgs, null, null, sortOrder);
+            case DINNERCLUB_WITH_COOK_AND_COURSE:
+                String dinnerclubJoinedWithUsersAndCourse = DbContract.DinnerClubs.TABLE_NAME+
+                        " INNER JOIN "+DbContract.Users.TABLE_NAME+
+                        " ON ("+DbContract.DinnerClubs.TABLE_NAME+"."+DbContract.DinnerClubs.userCookId+
+                        "="+DbContract.Users.TABLE_NAME+"."+DbContract.Users._ID+")"+
+                        " JOIN "+DbContract.Courses.TABLE_NAME+" "+
+                        DbContract.DinnerClubs.SELECTION_MAIN_COURSE_TABLE_JOINED_NAME+
+                        " ON ("+DbContract.DinnerClubs.SELECTION_MAIN_COURSE_TABLE_JOINED_NAME+
+                        "."+DbContract.Courses._ID+
+                        "="+DbContract.DinnerClubs.TABLE_NAME+"."+DbContract.DinnerClubs.mainCourseId+")"+
+                        " JOIN "+DbContract.Courses.TABLE_NAME+" "+
+                        DbContract.DinnerClubs.SELECTION_SIDE_COURSE_TABLE_JOINED_NAME+
+                        " ON ("+DbContract.DinnerClubs.SELECTION_SIDE_COURSE_TABLE_JOINED_NAME+
+                        "."+DbContract.Courses._ID+
+                        "="+DbContract.DinnerClubs.TABLE_NAME+"."+DbContract.DinnerClubs.sideCourseId+")";
+                return db.query(dinnerclubJoinedWithUsersAndCourse, projection, selection,
                         selectionArgs, null, null, sortOrder);
             case COURSE_QUERY:
                 return db.query(DbContract.Courses.TABLE_NAME, projection, selection,

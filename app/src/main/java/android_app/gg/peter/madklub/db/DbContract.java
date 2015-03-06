@@ -26,6 +26,9 @@ public class DbContract {
         public static final String TABLE_NAME = "DinnerClub";
         public static final String URI_TAG_DINNERCLUB_QUERY = "DinnerClubQuery";
         public static final String URI_TAG_DINNERCLUB_WITH_COOK_NAME = "DinnerClubWithCookName";
+        public static final String URI_TAG_DINNERCLUB_WITH_COOK_AND_COURSE = "DinnerClubWithCookName";
+        public static final String SELECTION_MAIN_COURSE_TABLE_JOINED_NAME = "courseMain";
+        public static final String SELECTION_SIDE_COURSE_TABLE_JOINED_NAME = "courseSide";
         //Fields
         public static final String date = "date";
         public static final String mainCourseId = "mainCourseId";
